@@ -7,3 +7,8 @@ export const carsAtom = atom({
   key: "cars",
   default: carsAtomDefault
 });
+
+export const segmentAtom = atom({
+  key: "carsSegment",
+  default: ""
+});

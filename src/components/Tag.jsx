@@ -1,9 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { segmentAtom } from "@/lib/cars-atom";
 
-export default function Tag({ text }) {
-  return <TagContainer>{text}</TagContainer>;
+export default function Tag({ text, seg }) {
+  const [carsSegment, setCarsSegment] = useRecoilState(segmentAtom);
+  return (
+    <TagContainer
+      onClick={() => {
+        setCarsSegment(seg);
+      }}
+    >
+      {text}
+    </TagContainer>
+  );
 }
 
 const TagContainer = styled.div`
@@ -26,5 +37,6 @@ const TagContainer = styled.div`
 `;
 
 Tag.propTypes = {
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  seg: PropTypes.string
 };

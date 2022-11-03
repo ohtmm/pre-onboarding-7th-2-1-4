@@ -5,22 +5,33 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import axios from "axios";
 import CarsList from "./CarsList";
-import { fetchData } from "@/lib/api";
+import { segmentAtom } from "@/lib/cars-atom";
+import { useRecoilValue } from "recoil";
 
 export default function CarsPage() {
-  const [segment, setSegment] = useState("all");
+  const carsSegment = useRecoilValue(segmentAtom);
   const {
     isLoading,
     data: cars,
     error
-  } = useQuery(["cars", segment], fetchData);
-  const onClickSegment = () => {
-    console.log("클릭한 세그먼트");
-  };
+  } = useQuery(
+    ["cars", carsSegment],
+    async () => {
+      const res = await axios.get(
+        `https://preonboarding.platdev.net/api/cars?${
+          carsSegment ? `segment=${carsSegment}` : ""
+        }`
+      );
+      return res.data.payload;
+    },
+    {
+      staleTime: 1000 * 60 * 5
+    }
+  );
   return (
     <CarsContainer>
       <HeaderBar text="전체차량" />
-      <Category onClickSegment={onClickSegment} />
+      <Category />
       {error ? (
         <Loader>에러 {error.message} 담당자에게 문의하세요</Loader>
       ) : !isLoading ? (
@@ -39,7 +50,7 @@ const CarsContainer = styled.div`
   background-color: #fff;
 `;
 
-const Loader = styled.div`
+export const Loader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

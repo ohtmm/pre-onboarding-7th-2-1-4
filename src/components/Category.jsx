@@ -3,13 +3,13 @@ import styled from "styled-components";
 import Tag from "./Tag";
 import PropTypes from "prop-types";
 
-export default function Category({ onClickSegment }) {
+export default function Category() {
   return (
     <CategoryContainer>
-      <Tag text="전체" onClickSegment={onClickSegment} />
-      <Tag text="대형" onClickSegment={onClickSegment} />
-      <Tag text="중형" onClickSegment={onClickSegment} />
-      <Tag text="소형" onClickSegment={onClickSegment} />
+      <Tag text="전체" />
+      <Tag text="대형" seg="E" />
+      <Tag text="중형" seg="D" />
+      <Tag text="소형" seg="C" />
     </CategoryContainer>
   );
 }
