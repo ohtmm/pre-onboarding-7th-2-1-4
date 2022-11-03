@@ -1,19 +1,28 @@
 // import Tag from "@/components/Tag";
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-export default function CarItem() {
-  // carsitem ui 렌더링
+export default function CarItem({ car }) {
+  const { brand, name, segment, fuelType, imageUrl } = car.attribute;
+  const { id, amount } = car;
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/detail/${id}`);
+  };
   return (
-    <CarItemContainer>
+    <CarItemContainer onClick={handleClick}>
       <ItemText>
-        <h3>기아</h3>
-        <h3>EV6</h3>
-        <p> 중형 / 전기</p>
-        <p> 월 600,000원 부터</p>
+        <h3>{brand}</h3>
+        <h3>{name}</h3>
+        <p>
+          {segment} / {fuelType}
+        </p>
+        <p> 월 {amount}원 부터</p>
       </ItemText>
       {/* <ItemTag text="신규" /> */}
-      <ItemImg />
+      <ItemImg src={`${imageUrl}`} />
     </CarItemContainer>
   );
 }
@@ -75,3 +84,7 @@ const ItemImg = styled.img`
 //   background-color: #0094ff;
 //   border-radius: 42px;
 // `;
+
+CarItem.propTypes = {
+  car: PropTypes.object.isRequired
+};

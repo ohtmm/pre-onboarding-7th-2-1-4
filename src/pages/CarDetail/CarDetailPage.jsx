@@ -1,21 +1,27 @@
 import HeaderBar from "@/components/HeaderBar";
+import { carsAtom } from "@/lib/cars-atom";
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import DetailList from "./DetailList";
-import ListHeader from "./ListHeader";
-import ListItem from "./ListItem";
 
 export default function CarDetailPage() {
+  const { id } = useParams();
+  const [cars] = useRecoilState(carsAtom);
+  const selectedCar = cars[id - 1];
+  const { amount, additionalProducts, insurance, attribute } = selectedCar;
+  const { imageUrl, brand, name } = selectedCar.attribute;
   return (
     <DetailPage>
       <HeaderBar text="차량상세" />
-      <img />
-      <h3>현대</h3>
-      <h2>아반떼 CN7</h2>
-      <p>월 600,000원</p>
-      <DetailList text="차량정보" />
-      <DetailList text="보험" />
-      <DetailList text="추가상품" />
+      <img src={imageUrl} />
+      <h3>{brand}</h3>
+      <h2>{name}</h2>
+      <p>월 {amount}원</p>
+      {attribute && <DetailList text="차량정보" />}
+      {insurance.length ? <DetailList text="보험" /> : null}
+      {additionalProducts.length ? <DetailList text="추가상품" /> : null}
     </DetailPage>
   );
 }

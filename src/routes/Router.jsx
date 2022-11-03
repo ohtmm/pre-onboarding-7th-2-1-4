@@ -1,14 +1,14 @@
 import CarDetailPage from "@/pages/CarDetail/CarDetailPage";
-import CarListPage from "@/pages/Cars/CarsPage";
-import React from "react";
+import CarsPage from "@/pages/Cars/CarsPage";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<CarListPage />} />
-        <Route path="/detail" element={<CarDetailPage />} />
+        <Route path="/" element={<CarsPage />} />
+        <Route path="/detail/:id" element={<CarDetailPage />} />
       </Routes>
     </BrowserRouter>
   );
