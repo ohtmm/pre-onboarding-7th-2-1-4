@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { fetchData } from "./api";
+import { fetchData } from "./api/api";
 
 const carsAtomDefault = fetchData();
 

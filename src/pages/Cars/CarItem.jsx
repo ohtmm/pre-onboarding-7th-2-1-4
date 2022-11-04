@@ -3,6 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import Tag, { TagContainer } from "@/components/Tag";
+import { theme } from "@/styles/theme";
 
 export default function CarItem({ car }) {
   const { brand, name, segment, fuelType, imageUrl } = car.attribute;
@@ -21,7 +23,7 @@ export default function CarItem({ car }) {
         </p>
         <p> 월 {amount}원 부터</p>
       </ItemText>
-      {/* <ItemTag text="신규" /> */}
+      <ItemTag>신규</ItemTag>
       <ItemImg src={`${imageUrl}`} />
     </CarItemContainer>
   );
@@ -74,16 +76,14 @@ const ItemImg = styled.img`
   background-color: #d2d2d2;
 `;
 
-// const ItemTag = styled(Tag)`
-//   position: absolute;
-//   right: 0;
-//   top: 0;
-//   width: 52px;
-//   height: 22px;
-//   color: #fff;
-//   background-color: #0094ff;
-//   border-radius: 42px;
-// `;
+const ItemTag = styled(TagContainer)`
+  z-index: 100;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  color: ${(props) => props.theme.color.white};
+  background-color: ${(props) => props.theme.color.blue};
+`;
 
 CarItem.propTypes = {
   car: PropTypes.object.isRequired

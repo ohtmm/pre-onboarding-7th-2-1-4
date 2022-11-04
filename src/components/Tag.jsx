@@ -1,10 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { segmentAtom } from "@/lib/cars-atom";
+import { theme } from "@/styles/theme";
 
-export default function Tag({ text, seg }) {
+// export interface ITag {
+//   text: string;
+//   seg: string;
+//   bgColor: string;
+//   color: string;
+// }
+
+export default function Tag(
+  // props: object,
+  { text, seg, bgColor, color }
+) {
   const [carsSegment, setCarsSegment] = useRecoilState(segmentAtom);
   return (
     <TagContainer
@@ -17,7 +28,7 @@ export default function Tag({ text, seg }) {
   );
 }
 
-const TagContainer = styled.div`
+export const TagContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,15 +39,17 @@ const TagContainer = styled.div`
   border-radius: 62px;
   font-weight: 700;
   font-size: 14px;
-  background-color: #d9d9d9;
+  background-color: ${(props) => props.theme.color.gray};
   cursor: pointer;
   :hover {
-    color: #fff;
-    background-color: #222;
+    color: ${(props) => props.theme.color.white};
+    background-color: ${(props) => props.theme.color.black};
   }
 `;
 
 Tag.propTypes = {
   text: PropTypes.string.isRequired,
-  seg: PropTypes.string
+  seg: PropTypes.string,
+  bgColor: PropTypes.string,
+  color: PropTypes.string
 };
