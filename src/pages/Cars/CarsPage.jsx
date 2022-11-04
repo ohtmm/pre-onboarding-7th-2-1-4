@@ -8,6 +8,7 @@ import CarsList from "./CarsList";
 import { segmentAtom } from "@/lib/cars-atom";
 import { useRecoilValue } from "recoil";
 import Notice from "@/components/Notice";
+import { fetchData } from "@/lib/api/api";
 
 export default function CarsPage() {
   const carsSegment = useRecoilValue(segmentAtom);
@@ -15,19 +16,8 @@ export default function CarsPage() {
     isLoading,
     data: cars,
     error
-  } = useQuery(
-    ["cars", carsSegment],
-    // 1. getCarsData(carsSegment)
-    async () => {
-      const res = await axios.get(
-        `https://preonboarding.platdev.net/api/cars?${
-          carsSegment ? `segment=${carsSegment}` : ""
-        }`
-      );
-      return res.data.payload;
-    }
-    // 3. getCars(carsSegment),
-  );
+  } = useQuery(["cars", carsSegment], fetchData);
+
   return (
     <CarsContainer>
       <HeaderBar text="전체차량" />

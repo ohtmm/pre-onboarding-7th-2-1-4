@@ -21,7 +21,7 @@ export default function CarItem({ car }) {
         <p>
           {segment} / {fuelType}
         </p>
-        {/* <p> 월 {amount}원 부터</p> */}
+        <p> 월 {amount}원 부터</p>
       </ItemText>
       <ItemTag>신규</ItemTag>
       <ItemImg src={`${imageUrl}`} />
